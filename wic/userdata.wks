@@ -1,0 +1,3 @@
+include sdimage-raspberrypi.wks
+
+part /usrdata --ondisk mmcblk0 --fstype=ext4 --label data --align 4096 --size 100M

@@ -1,0 +1,12 @@
+[Unit]
+Description=A simple application to demonstrate IoT remote device control
+
+[Service]
+ExecStart=/usr/bin/iot-device.py
+DynamicUser=true
+User=iotctrl
+Group=iotctrl
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
