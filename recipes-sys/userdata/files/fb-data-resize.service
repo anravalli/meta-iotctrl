@@ -4,7 +4,7 @@ Before=userdata.mount
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/fb-data-auto-resize.sh
+ExecStart=/usr/bin/fb-data-resize.sh
 # Il servizio si disabilita da solo dopo il successo per non rallentare i boot successivi
 ExecStartPost=/bin/systemctl disable fb-data-resize.service
 

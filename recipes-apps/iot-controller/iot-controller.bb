@@ -1,4 +1,4 @@
-inherit systemd
+inherit systemd useradd
 
 SUMMARY = "A simple application to demonstrate IoT remote device control"
 LICENSE = "GPL-2.0-only"
@@ -17,6 +17,7 @@ addtask display_banner before do_build
 # Sorgenti: il file locale nella cartella 'files'
 SRC_URI = "file://iot-device.py \
     file://iot-controller.service \
+    file://90-gpio.rules \
     "
 
 SYSTEMD_SERVICE:${PN} = "iot-controller.service"
@@ -24,15 +25,16 @@ SYSTEMD_AUTO_ENABLE = "enable"
 
 FILES:${PN} += "${systemd_unitdir}/system/iot-controller.service"
 
-# Dipendenze di runtime (RDEPENDS)
-# paho-mqtt si trova solitamente in meta-python come 'python3-paho-mqtt'
-# libgpio per python è solitamente 'python3-gpiod'
 RDEPENDS:${PN} = " \
     python3-core \
     python3-paho-mqtt \
-    rpi-gpio \
+    python3-gpiod \
 "
 S = "${UNPACKDIR}"
+
+USERADD_PACKAGES = "${PN}"
+GROUPADD_PARAM:${PN} = "--system gpio"
+
 
 do_install() {
     # Crea la directory di destinazione sulla Raspberry (/usr/bin)
@@ -41,4 +43,7 @@ do_install() {
     install -m 0755 ${S}/iot-device.py ${D}${bindir}/iot-device.py
     install -d ${D}/${systemd_unitdir}/system
     install -m 0644 ${S}/iot-controller.service ${D}/${systemd_unitdir}/system
+
+    install -d ${D}${sysconfdir}/udev/rules.d
+    install -m 0644 90-gpio.rules ${D}${sysconfdir}/udev/rules.d/
 }

@@ -29,7 +29,7 @@ SYSTEMD_SERVICE:${PN} = "fb-data-resize.service"
 
 do_install() {
     install -d ${D}${bindir}
-    install -m 0755 fb-data-auto-resize.sh ${D}${bindir}/fb-data-auto-resize.sh
+    install -m 0755 fb-data-resize.sh ${D}${bindir}/fb-data-resize.sh
 
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 fb-data-resize.service ${D}${systemd_system_unitdir}/fb-data-resize.service

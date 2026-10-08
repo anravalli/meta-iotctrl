@@ -7,6 +7,6 @@ INHERIT += "extrausers"
 # Crea l'utente 'operator', imposta la shell e una password (es: 'password123')
 # Nota: La password deve essere criptata. Puoi generarla con: openssl passwd -6 password123
 EXTRA_USERS_PARAMS = " \
-    useradd -p '\$6\$rounds=4096\$salt\$hashedpassword...' operator; \
-    usermod -a -G video,audio,gpio operator; \
+    useradd -p '\$6\$rounds=4096\$salt\$hashedpassword...' iotops; \
+    usermod -a -G video,audio,iotops; \
 "
